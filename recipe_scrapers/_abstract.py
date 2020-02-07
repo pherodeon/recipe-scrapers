@@ -24,6 +24,8 @@ class AbstractScraper():
             decorated_methods = [
                 'title',
                 'total_time',
+                'prep_time',
+                'cook_time',
                 'yields',
                 'image',
                 'instructions',
@@ -35,6 +37,10 @@ class AbstractScraper():
             if name in decorated_methods:
                 to_return = ''
             if name == 'total_time':
+                to_return = 0
+            if name == 'prep_time':
+                to_return = 0
+            if name == 'cook_time':
                 to_return = 0
             if name == 'yields':
                 to_return = ''
@@ -80,6 +86,14 @@ class AbstractScraper():
         raise NotImplementedError("This should be implemented.")
 
     def total_time(self):
+        """ total time it takes to preparate the recipe in minutes """
+        raise NotImplementedError("This should be implemented.")
+
+    def prep_time(self):
+        """ total time it takes to preparate the recipe in minutes """
+        raise NotImplementedError("This should be implemented.")
+
+    def cook_time(self):
         """ total time it takes to preparate the recipe in minutes """
         raise NotImplementedError("This should be implemented.")
 

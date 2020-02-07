@@ -18,13 +18,13 @@
 ------
 
 
+This repository is a fork from https://github.com/hhursev/recipe-scrapers
+
+Unless the modifications included are critical to you please refer to the main repository
+
 A simple web scraping tool for recipe sites.
 
-.. code::
-
-    pip install recipe-scrapers
-
-then:
+How to use
 
 .. code:: python
 
@@ -90,40 +90,4 @@ Scrapers available for:
 - `http://yummly.com/ <http://yummly.com>`_
 
 
-Contribute
-----------
 
-Part of the reason I want this open sourced is because if a site makes a design change, the scraper for it should be modified.
-
-If you spot a design change (or something else) that makes the scraper unable to work for a given site - please fire an issue asap.
-
-If you are programmer PRs with fixes are warmly welcomed and acknowledged with a virtual beer.
-
-
-If you want a scraper for a new site added
-------------------------------------------
-
-- Open an `Issue <https://github.com/hhursev/recipe-scraper/issues/new>`_ providing us the site name, as well as a recipe link from it.
-- If you are a developer and want to code the scraper on your own, `this is a wonderful example <https://github.com/hhursev/recipe-scraper/pull/29/files>`_ of how to do it.
-
-
-For Devs / Contribute
----------------------
-
-Assuming you have `python3` installed, navigate to the directory where you want this project to live in and drop these lines
-
-.. code::
-
-    git clone git@github.com:hhursev/recipe-scrapers.git &&
-    cd recipe-scrapers &&
-    python3 -m venv .venv &&
-    source .venv/bin/activate &&
-    pip install -r requirements.txt &&
-    coverage run tests.py &&
-    coverage report
-
-
-Spacial thanks to:
-------------------
-
-All the `contributors that helped improving <https://github.com/hhursev/recipe-scrapers/graphs/contributors>`_  the package. You are awesome!
