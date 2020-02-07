@@ -139,3 +139,5 @@ Temporary Items
 
 # Pycharm
 .idea/*
+
+*.json
