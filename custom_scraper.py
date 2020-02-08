@@ -2,14 +2,21 @@
 from recipe_scrapers import scrape_me
 
 import os
+import glob
 import json
 from slugify import slugify
 
 # give the url as a string, it can be url from any site listed below
 # scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
 
+# Parameters
+input_sources_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/_sources/"
+output_base_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/"
+
 
 def get_recipe_dict(link):
+    """Wrapper around recipe_scrapers library"""
+    # FOR DEBUG : link = 'https://www.101cookbooks.com/instant-pot-mushroom-stroganoff/'
     scraper = scrape_me(link)
 
     dict_recipe = dict()
@@ -41,28 +48,44 @@ def get_recipe_dict(link):
 
     return dict_recipe
 
-# FOR DEBUG :
-# link = 'https://www.101cookbooks.com/instant-pot-mushroom-stroganoff/'
+
 # dict_recipe = get_recipe_dict(link)
 # print(dict_recipe)
 
 
-# Move to file
-li_links = [
-    'https://www.101cookbooks.com/instant-pot-congee-recipe/',
-    'https://www.101cookbooks.com/instant-pot-brown-rice-bowl/',
-    'https://www.101cookbooks.com/instant-pot-minestrone-soup-recipe/',
-    'https://www.101cookbooks.com/instant-pot-chickpea-cauliflower-korma/',
-    'https://www.101cookbooks.com/instant-pot-mushroom-stroganoff/',
-    'https://www.101cookbooks.com/spicy-instant-pot-taco-soup-recipe/',
-    'https://www.101cookbooks.com/instant-pot-chili-mac-recipe/'
-    'https://www.101cookbooks.com/slow-cooker-black-bean-chili/'
-]
-li_scraped_recipes = [ get_recipe_dict(link) for link in li_links]
+def read_links_file(S_LINKS_FILE):
+    """Reads text files and returns a list of lines content"""
+
+    # FOR DEBUG
+    # li_links = read_links_file(input_sources_folder + "101cookbooks.txt")
+
+    links = []
+    with open(S_LINKS_FILE,'r',encoding='windows-1252') as input_file:
+        for line in input_file:
+            links.append(line.rstrip())
+    return links
 
 
-# TODO: proteger contra "title" vacío
-#   quizás se pueda sacar de otro campo
+li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
+
+
+li_links = []
+for file in li_file_paths:
+    li_links.append(read_links_file(file))
+
+# TODO: remove already scraped recipes from li_links unless Overwrite = True
+
+# The core of this script in only one line!
+li_scraped_recipes = [get_recipe_dict(link) for link in li_links]
+
+# TODO: protect against
+# scrape_me
+#   link not working
+# Writer
+#   "title" empty
+#   dict_recipe empty
+# TODO: move to another folder, import scrape_me from folder location
+
 
 def check_dir(base_dir):
     """Creates dir if not exists
@@ -72,8 +95,9 @@ def check_dir(base_dir):
         os.makedirs(base_dir)
     return base_dir
 
-def write_recipe(recipe):
-    base_dir = r'./' + slugify(recipe['host']) + r'/'
+
+def write_recipe(recipe, output_base_dir):
+    base_dir = output_base_dir + slugify(recipe['host']) + r'/'
     check_dir(base_dir)
     file_out = slugify(recipe['title']) + '.json'
     with open(base_dir + file_out, 'w', encoding='utf-8') as outfile: # 'iso-8859-1' 'windows-1252'
@@ -81,5 +105,5 @@ def write_recipe(recipe):
 
 
 for dict_recipe in li_scraped_recipes:
-    write_recipe(dict_recipe)
+    write_recipe(dict_recipe, output_base_folder)
 
