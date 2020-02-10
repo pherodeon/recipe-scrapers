@@ -25,14 +25,18 @@ def get_recipe_dict(link):
     dict_recipe['prep_time'] = scraper.prep_time()
     dict_recipe['cook_time'] = scraper.cook_time()
     dict_recipe['yields'] = scraper.yields()
+    # TODO: read ingredients, instructions as list + count
     dict_recipe['ingredients'] = scraper.ingredients()
     dict_recipe['instructions'] = scraper.instructions()
-    # dict_recipe['image'] = scraper.image()
-    # dict_recipe['links'] = scraper.links()
     dict_recipe['ratings'] = scraper.ratings()
     dict_recipe['reviews'] = scraper.reviews()
     dict_recipe['source'] = link
     dict_recipe['host'] = scraper.host()
+
+    # Data from scrape_me not used.
+    # TODO: How to add a link to a picture in a json file?
+    # dict_recipe['image'] = scraper.image()
+    # dict_recipe['links'] = scraper.links()
 
     # Type 'easyrecipe'; "wprm-recipe-container"
     # dict_recipe['Author'] = (True, 'span', 'itemprop', 'author')
@@ -104,6 +108,6 @@ def write_recipe(recipe, output_base_dir):
         json.dump(recipe, outfile, indent=2, ensure_ascii=False)
 
 
-for dict_recipe in li_scraped_recipes:
-    write_recipe(dict_recipe, output_base_folder)
+for recipe in li_scraped_recipes:
+    write_recipe(recipe, output_base_folder)
 
