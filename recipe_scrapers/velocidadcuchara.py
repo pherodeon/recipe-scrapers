@@ -53,10 +53,10 @@ class VelocidadCuchara(AbstractScraper):
         ]
 
     def ratings(self):
-        return self.soup.find('div', attrs={'itemprop': 'ratingValue'})[0].get_text()
+        return self.soup.find('span', attrs={'itemprop': 'ratingValue'}).get_text()
 
     def reviews(self):
-        return self.soup.find('div', attrs={'itemprop': 'ratingValue'})[0].get_text()
+        return self.soup.find('span', attrs={'itemprop': 'ratingCount'}).get_text()
 
     def notes(self):
         return self.soup.find('div', attrs={'class':'ERSNotes'}).get_text()
