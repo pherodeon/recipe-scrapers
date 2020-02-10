@@ -50,6 +50,8 @@ class AbstractScraper():
                 to_return = []
             if name == 'ratings':
                 to_return = -1.0
+            if name == 'notes':
+                to_return = -1.0
             if name == 'reviews':
                 to_return = -1.0
             if to_return is not None:
@@ -127,7 +129,10 @@ class AbstractScraper():
 
     def reviews(self):
         raise NotImplementedError("This should be implemented.")
-
+        
+    def notes():
+        raise NotImplementedError("This should be implemented.")
+        
     def links(self):
         invalid_href = ('#', '')
         links_html = self.soup.findAll('a', href=True)

@@ -35,6 +35,7 @@ from .thespruceeats import TheSpruceEats
 from .thevintagemixer import TheVintageMixer
 from .tineno import TineNo
 from .twopeasandtheirpod import TwoPeasAndTheirPod
+from .velocidadcuchara import VelocidadCuchara
 from .whatsgabycooking import WhatsGabyCooking
 from .wikicookbook import WikiCookbook
 from .yummly import Yummly
@@ -79,6 +80,7 @@ SCRAPERS = {
     TineNo.host(): TineNo,
     TwoPeasAndTheirPod.host(): TwoPeasAndTheirPod,
     WhatsGabyCooking.host(): WhatsGabyCooking,
+    VelocidadCuchara.host(): VelocidadCuchara,
     WikiCookbook.host(): WikiCookbook,
     Yummly.host(): Yummly,
     GeniusKitchen.host(): GeniusKitchen,

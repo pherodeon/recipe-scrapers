@@ -31,10 +31,9 @@ class HundredAndOneCookbooks(AbstractScraper):
         )
 
     def yields(self):
-        return get_yields(self.soup.findAll(
+        self.soup.findAll(
             'div',
             {'class': 'wprm-recipe-time'})[0].get_text()
-        )
 
     def ingredients(self):
         ingredients = self.soup.findAll(
@@ -53,19 +52,20 @@ class HundredAndOneCookbooks(AbstractScraper):
             {'class': 'wprm-recipe-instruction'}
         )
 
-        return '\n'.join([
+        return [
             normalize_string(instruction.get_text())
             for instruction in instructions
-        ])
+        ]
 
     def ratings(self):
-        return get_yields(self.soup.findAll(
+        return self.soup.findAll(
             'div',
-            {'class': 'wprm-recipe-rating-average'})[0].get_text()
-        )
+            {'class': 'wprm-recipe-rating-average'}
+        )[0].get_text()
 
     def reviews(self):
-        return get_yields(self.soup.findAll(
+        return self.soup.findAll(
             'div',
-            {'class': 'wprm-recipe-rating-count'})[0].get_text()
-        )
+            {'class': 'wprm-recipe-rating-count'}
+        )[0].get_text()
+        

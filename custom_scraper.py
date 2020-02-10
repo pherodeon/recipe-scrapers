@@ -31,9 +31,10 @@ def get_recipe_dict(link):
 	# print(dict_recipe)
 	
     scraper = scrape_me(link)
-
+    
     dict_recipe = dict()
     dict_recipe['title'] = scraper.title()
+    print(dict_recipe['title']) # For live-view
     dict_recipe['total_time'] = scraper.total_time()
     dict_recipe['prep_time'] = scraper.prep_time()
     dict_recipe['cook_time'] = scraper.cook_time()
@@ -64,7 +65,7 @@ def get_recipe_dict(link):
 
     return dict_recipe
 
-
+# %% list of links to download
 def read_links_file(S_LINKS_FILE):
     """Reads text files and returns a list of lines content"""
 
@@ -83,7 +84,7 @@ li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
 
 li_links = []
 for file in li_file_paths:
-    li_links.append(read_links_file(file))
+    li_links += read_links_file(file)
 
 # TODO: remove already scraped recipes from li_links unless Overwrite = True
 
