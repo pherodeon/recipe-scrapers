@@ -1,3 +1,13 @@
+'''
+
+TODO: public move to github public account / rename this account
+
+TODO: move all utilities outside this repository
+ - install your fork as a library
+ - import from another folder
+
+'''
+
 # from recipe_scrapers import scrape_me
 from recipe_scrapers import scrape_me
 
@@ -17,6 +27,9 @@ output_base_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/"
 def get_recipe_dict(link):
     """Wrapper around recipe_scrapers library"""
     # FOR DEBUG : link = 'https://www.101cookbooks.com/instant-pot-mushroom-stroganoff/'
+	# dict_recipe = get_recipe_dict(link)
+	# print(dict_recipe)
+	
     scraper = scrape_me(link)
 
     dict_recipe = dict()
@@ -24,10 +37,12 @@ def get_recipe_dict(link):
     dict_recipe['total_time'] = scraper.total_time()
     dict_recipe['prep_time'] = scraper.prep_time()
     dict_recipe['cook_time'] = scraper.cook_time()
+	# TODO: return yields as number
     dict_recipe['yields'] = scraper.yields()
     # TODO: read ingredients, instructions as list + count
     dict_recipe['ingredients'] = scraper.ingredients()
     dict_recipe['instructions'] = scraper.instructions()
+	# TODO: improve ratings, reviews (all = -1)
     dict_recipe['ratings'] = scraper.ratings()
     dict_recipe['reviews'] = scraper.reviews()
     dict_recipe['source'] = link
@@ -37,24 +52,17 @@ def get_recipe_dict(link):
     # TODO: How to add a link to a picture in a json file?
     # dict_recipe['image'] = scraper.image()
     # dict_recipe['links'] = scraper.links()
-
+	
+	# TODO: Data from easyrecipe, not scraped:
     # Type 'easyrecipe'; "wprm-recipe-container"
-    # dict_recipe['Author'] = (True, 'span', 'itemprop', 'author')
-    # dict_recipe['recipeType'] = (True, 'span', 'itemprop', 'recipeCategory')
+    # dict_recipe['author'] = (True, 'span', 'itemprop', 'author')
+    # dict_recipe['type'] = (True, 'span', 'itemprop', 'recipeCategory')
     # dict_recipe['cuisine'] = (True, 'span', 'itemprop', 'recipeCuisine')
-    # dict_recipe['Notes'] = (True, 'div', 'class', 'ERSNotes')
-
-
-    # pendiente!!!! No está dentro de la receta !!! hay que cogerlo de fuera
-    # !d_conf['date'         ] = (True  ,'div'  ,'itemprop' ,'datePublished'      )
-
+    # dict_recipe['notes'] = (True, 'div', 'class', 'ERSNotes')
+    # dict_recipe['date'] = (True  ,'div'  ,'itemprop' ,'datePublished'      )
     # recipe = bs.find('div', attrs={'class': 'easyrecipe'})
 
     return dict_recipe
-
-
-# dict_recipe = get_recipe_dict(link)
-# print(dict_recipe)
 
 
 def read_links_file(S_LINKS_FILE):
