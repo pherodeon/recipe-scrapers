@@ -1,6 +1,8 @@
 from ._abstract import AbstractScraper
 from ._utils import get_minutes, normalize_string, get_yields
 
+# TODO: define "wprm-recipe-container" scraper class and inherit from it
+
 
 class HundredAndOneCookbooks(AbstractScraper):
 
@@ -57,15 +59,34 @@ class HundredAndOneCookbooks(AbstractScraper):
             for instruction in instructions
         ]
 
+    def notes(self):
+        # TODO:
+        return 'not-available'
+
     def ratings(self):
+	    # TODO: return as number
         return self.soup.findAll(
-            'div',
+            'span',
             {'class': 'wprm-recipe-rating-average'}
         )[0].get_text()
 
     def reviews(self):
+	    # TODO: return as number
         return self.soup.findAll(
-            'div',
+            'span',
             {'class': 'wprm-recipe-rating-count'}
         )[0].get_text()
-        
+
+    def category(self):
+        # TODO get from tags?
+        return 'not-available'
+
+    def cuisine(self):
+        return 'not-available'
+
+    def author(self):
+        return self.soup.find('span', attrs={'itemprop': 'author'}).get_text()
+
+    def date_published(self):
+        # TODO
+        return 'not-available'

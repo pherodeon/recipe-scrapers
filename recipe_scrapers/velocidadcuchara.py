@@ -2,6 +2,8 @@
 from ._abstract import AbstractScraper
 from ._utils import get_minutes, normalize_string, get_yields
 
+# TODO define a easy-recipe scraper class and inherit from it
+
 
 class VelocidadCuchara(AbstractScraper):
 
@@ -60,3 +62,16 @@ class VelocidadCuchara(AbstractScraper):
 
     def notes(self):
         return self.soup.find('div', attrs={'class':'ERSNotes'}).get_text()
+
+    def cuisine(self):
+        return self.soup.find('span', attrs={'itemprop': 'recipeCuisine'}).get_text()
+
+    def category(self):
+        return self.soup.find('span', attrs={'itemprop': 'recipeCategory'}).get_text()
+
+    def author(self):
+        return self.soup.find('span', attrs={'itemprop': 'author'}).get_text()
+
+    def date_published(self):
+        # TODO:
+        return 'not-available'

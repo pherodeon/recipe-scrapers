@@ -48,12 +48,20 @@ class AbstractScraper():
                 to_return = []
             if name == 'links':
                 to_return = []
-            if name == 'ratings':
-                to_return = -1.0
             if name == 'notes':
+                to_return = -1.0
+            if name == 'ratings':
                 to_return = -1.0
             if name == 'reviews':
                 to_return = -1.0
+            if name == 'category':
+                to_return = 'no-category'
+            if name == 'cuisine':
+                to_return = 'no-cuisine'
+            if name == 'author':
+                to_return = 'no-author'
+            if name == 'date_published':
+                to_return = 'no-date_published'
             if to_return is not None:
                 return on_exception_return(to_return)(object.__getattribute__(self, name))
 
@@ -130,7 +138,7 @@ class AbstractScraper():
     def reviews(self):
         raise NotImplementedError("This should be implemented.")
         
-    def notes():
+    def notes(self):
         raise NotImplementedError("This should be implemented.")
         
     def links(self):
@@ -142,3 +150,15 @@ class AbstractScraper():
             for link in links_html
             if link['href'] not in invalid_href
         ]
+
+    def cuisine(self):
+        raise NotImplementedError("This should be implemented.")
+
+    def category(self):
+        raise NotImplementedError("This should be implemented.")
+
+    def author(self):
+        raise NotImplementedError("This should be implemented.")
+
+    def date_published(self):
+        raise NotImplementedError("This should be implemented.")
