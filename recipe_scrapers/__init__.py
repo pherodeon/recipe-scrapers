@@ -14,6 +14,7 @@ from .foodnetwork import FoodNetwork
 from .foodrepublic import FoodRepublic
 from .giallozafferano import GialloZafferano
 from .hellofresh import HelloFresh
+from .hoycomemossano import HoyComemosSano
 from .hundredandonecookbooks import HundredAndOneCookbooks
 from .inspiralized import Inspiralized
 from .jamieoliver import JamieOliver
@@ -59,6 +60,7 @@ SCRAPERS = {
     GialloZafferano.host(): GialloZafferano,
     HelloFresh.host(): HelloFresh,
     HelloFresh.host(domain='co.uk'): HelloFresh,
+    HoyComemosSano.host(): HoyComemosSano,
     HundredAndOneCookbooks.host(): HundredAndOneCookbooks,
     Inspiralized.host(): Inspiralized,
     JamieOliver.host(): JamieOliver,

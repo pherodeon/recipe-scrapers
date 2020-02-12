@@ -108,6 +108,8 @@ def write_recipe(recipe, output_base_dir):
         json.dump(recipe, outfile, indent=2, ensure_ascii=False)
 
 
+dict_test = get_recipe_dict('https://hoycomemossano.com/2016/10/estofado-de-pavo.html')
+
 # %% list of links to download
 
 li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
