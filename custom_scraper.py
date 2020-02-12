@@ -26,6 +26,7 @@ import random as rn
 
 # Parameters
 input_sources_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/_sources/"
+#input_sources_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/_sources_test/"
 output_base_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/"
 
 
@@ -34,15 +35,14 @@ def get_recipe_dict(link):
 
     Returns a dictionary with the scraped contents"""
 
-    # Random wait to not overload webpage
+    # Random wait to not overload any webpage
     # sleep(2 + rn.random()*6)
     scraper = scrape_me(link)
     
     dict_recipe = dict()
 
-    # TODO: Is it possible to simplify this?
+    # TODO: Is it possible to simplify this? sth *args, **kwargs based with a list of methods?
     dict_recipe['title'] = scraper.title()
-    print(dict_recipe['title']) # For live-view
     dict_recipe['total_time'] = scraper.total_time()
     dict_recipe['prep_time'] = scraper.prep_time()
     dict_recipe['cook_time'] = scraper.cook_time()
@@ -66,14 +66,19 @@ def get_recipe_dict(link):
     # TODO: How to add a link to a picture in a json file?
     # dict_recipe['image'] = scraper.image()
     # dict_recipe['links'] = scraper.links()
-	
+
     # TODO: if available, incorporate
-    # nutritional information (pressurecookrecipes.com)
+    # *nutritional information* (pressurecookrecipes.com)
     # tools (pressurecookrecipes.com) 
     # youtube_link
     # List of tags
-    
-    return dict_recipe
+
+    #
+    if dict_recipe['instructions_count'] < 1:
+        print('Not saved : ' + link)
+        return None
+    else:
+        return dict_recipe
 
 def check_dir(base_dir):
     """Creates dir if not exists
@@ -107,7 +112,6 @@ def write_recipe(recipe, output_base_dir):
 
 li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
 
-
 li_links = []
 for file in li_file_paths:
     li_links += read_links_file(file)
@@ -118,7 +122,9 @@ for file in li_file_paths:
 # Shuffle list to divide load between several pages
 rn.shuffle(li_links)
 
-li_scraped_recipes = [get_recipe_dict(link) for link in li_links]
+li_scraped_recipes_raw = [get_recipe_dict(link) for link in li_links]
+# Remove not valid links
+li_scraped_recipes = list(filter(None, li_scraped_recipes_raw))
 
 # TODO: protect against
 # scrape_me
