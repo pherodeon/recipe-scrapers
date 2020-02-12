@@ -4,11 +4,11 @@ from ._utils import get_minutes, normalize_string, get_yields
 # TODO: define "wprm-recipe-container" scraper class and inherit from it
 
 
-class HundredAndOneCookbooks(AbstractScraper):
+class PressureCookRecipes(AbstractScraper):
 
     @classmethod
     def host(self):
-        return '101cookbooks.com'
+        return 'pressurecookrecipes.com'
 
     def title(self):
         return self.soup.find('h1').get_text()

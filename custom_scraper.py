@@ -67,13 +67,22 @@ def get_recipe_dict(link):
     # dict_recipe['image'] = scraper.image()
     # dict_recipe['links'] = scraper.links()
 	
-	# TODO: Data from easyrecipe, not scraped:
-    # Type 'easyrecipe'; "wprm-recipe-container"
-
-
+    # TODO: if available, incorporate
+    # nutritional information (pressurecookrecipes.com)
+    # tools (pressurecookrecipes.com) 
+    # youtube_link
+    # List of tags
+    
     return dict_recipe
 
-# %% list of links to download
+def check_dir(base_dir):
+    """Creates dir if not exists
+
+    Requires path library"""
+    if not os.path.exists(base_dir):
+        os.makedirs(base_dir)
+    return base_dir
+
 def read_links_file(S_LINKS_FILE):
     """Reads text files and returns a list of lines content"""
 
@@ -86,6 +95,15 @@ def read_links_file(S_LINKS_FILE):
             links.append(line.rstrip())
     return links
 
+def write_recipe(recipe, output_base_dir):
+    base_dir = output_base_dir + slugify(recipe['host']) + r'/'
+    check_dir(base_dir)
+    file_out = slugify(recipe['title']) + '.json'
+    with open(base_dir + file_out, 'w', encoding='utf-8') as outfile: # 'iso-8859-1' 'windows-1252'
+        json.dump(recipe, outfile, indent=2, ensure_ascii=False)
+
+
+# %% list of links to download
 
 li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
 
@@ -109,15 +127,6 @@ li_scraped_recipes = [get_recipe_dict(link) for link in li_links]
 #   "title" empty
 #   dict_recipe empty
 # TODO: move to another folder, import scrape_me from folder location
-
-
-def check_dir(base_dir):
-    """Creates dir if not exists
-
-    Requires path library"""
-    if not os.path.exists(base_dir):
-        os.makedirs(base_dir)
-    return base_dir
 
 # %% Data analysis
 """
@@ -182,14 +191,6 @@ df.hist(column=['ratingValue', 'ratingCount'], bins=40)
 """
 
 # %% Write output files
-
-def write_recipe(recipe, output_base_dir):
-    base_dir = output_base_dir + slugify(recipe['host']) + r'/'
-    check_dir(base_dir)
-    file_out = slugify(recipe['title']) + '.json'
-    with open(base_dir + file_out, 'w', encoding='utf-8') as outfile: # 'iso-8859-1' 'windows-1252'
-        json.dump(recipe, outfile, indent=2, ensure_ascii=False)
-
 
 for recipe in li_scraped_recipes:
     write_recipe(recipe, output_base_folder)

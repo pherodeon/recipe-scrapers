@@ -47,6 +47,7 @@ def get_page_links(base_url, html_tag):
         logging.warning('No links found on the webpage.')
         raise Exception('No links found on the webpage.')
 
+    return links
 # %% Auxiliary functions
         
 def custom_concat(s_in, s_add):
