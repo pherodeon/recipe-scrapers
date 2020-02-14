@@ -80,6 +80,7 @@ def get_recipe_dict(link):
     else:
         return dict_recipe
 
+
 def check_dir(base_dir):
     """Creates dir if not exists
 
@@ -87,6 +88,7 @@ def check_dir(base_dir):
     if not os.path.exists(base_dir):
         os.makedirs(base_dir)
     return base_dir
+
 
 def read_links_file(S_LINKS_FILE):
     """Reads text files and returns a list of lines content"""
@@ -100,6 +102,7 @@ def read_links_file(S_LINKS_FILE):
             links.append(line.rstrip())
     return links
 
+
 def write_recipe(recipe, output_base_dir):
     base_dir = output_base_dir + slugify(recipe['host']) + r'/'
     check_dir(base_dir)
@@ -108,11 +111,11 @@ def write_recipe(recipe, output_base_dir):
         json.dump(recipe, outfile, indent=2, ensure_ascii=False)
 
 
-dict_test = get_recipe_dict('https://hoycomemossano.com/2016/10/estofado-de-pavo.html')
 
 # %% list of links to download
 
-li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
+li_file_paths = glob.glob(input_sources_folder + r'\*.txt')
+# li_file_paths = glob.glob(input_sources_folder + r'\**\*.txt', recursive=True)
 
 li_links = []
 for file in li_file_paths:
@@ -120,6 +123,7 @@ for file in li_file_paths:
 
 # TODO: remove already scraped recipes from li_links unless Overwrite = True
 
+assert len(li_links) != 0, 'Error: link sources files are empty'
 
 # Shuffle list to divide load between several pages
 rn.shuffle(li_links)
