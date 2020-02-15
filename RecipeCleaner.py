@@ -59,7 +59,7 @@ def apply_time_cleaner(dict_recipe, s_field):
         dict_recipe['i_' + s_field ] = 0
         dict_recipe[       s_field ] = '0'
 # %%    
-if __name__ == '__main__':    
+if __name__ == '__main__':
 
     dict_json_files = glob.glob(s_cur_dir + '*.json')
     print()

@@ -21,13 +21,14 @@ from slugify import slugify
 # from time import sleep, time
 import random as rn
 
-# give the url as a string, it can be url from any site listed below
-# scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
+# %% Parameters
 
-# Parameters
+# TODO: move to config file
 input_sources_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/_sources/"
-#input_sources_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/_sources_test/"
+# input_sources_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/_sources_test/"
 output_base_folder = r"C:/Users/arosso/Dropbox/TEMP/RECETARIO/json/"
+
+# %% Local functions
 
 
 def get_recipe_dict(link):
@@ -46,7 +47,7 @@ def get_recipe_dict(link):
     dict_recipe['total_time'] = scraper.total_time()
     dict_recipe['prep_time'] = scraper.prep_time()
     dict_recipe['cook_time'] = scraper.cook_time()
-	# TODO: return yields as number
+    # TODO: return yields as number
     dict_recipe['yields'] = scraper.yields()
     dict_recipe['ingredients'] = scraper.ingredients()
     dict_recipe['instructions'] = scraper.instructions()
@@ -112,6 +113,9 @@ def write_recipe(recipe, output_base_dir):
 
 
 
+# give the url as a string, it can be url from any site listed below
+# scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
+
 # %% list of links to download
 
 li_file_paths = glob.glob(input_sources_folder + r'\*.txt')
@@ -139,68 +143,6 @@ li_scraped_recipes = list(filter(None, li_scraped_recipes_raw))
 #   "title" empty
 #   dict_recipe empty
 # TODO: move to another folder, import scrape_me from folder location
-
-# %% Data analysis
-"""
-
-# %% Writes recipes summary csv file
-li_fields = ['title', 'yields', 'ratings', 'reviews', 'prep_time', 'cook_time', 'total_time', 'host', 'source']
-
-with open(s_json_recipe_dir + s_host + '.csv', mode='w', newline='\n', encoding='windows-1252') as output_file:
-    output_file_writer = csv.writer(output_file, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    output_file_writer.writerow(li_fields)
-    # TODO: replace writerow by auxiliary function using li_fields
-    for recipe in dict_results:
-        output_file_writer.writerow([ \
-            dict_results[recipe]['title'], \
-            # TODO: dict_results[recipe]['Author'], \
-            # TODO: dict_results[recipe]['recipeType'], \
-            # TODO: dict_results[recipe]['cuisine'], \
-            # TODO: count of ingredients
-            # TODO: count of instructions
-            dict_results[recipe]['yields'], \
-            dict_results[recipe]['ratings'], \
-            dict_results[recipe]['reviews'], \
-            dict_results[recipe]['prep_time'], \
-            dict_results[recipe]['cook_time'], \
-            dict_results[recipe]['total_time'], \
-            dict_results[recipe]['host'], \
-            dict_results[recipe]['source'] ])
-        #output_file_writer.writerow([recipe['Name'], recipe['time_prep'], recipe['time_cook'], recipe['time_total']])
-        #print(dict_results[recipe]['Name'])#, recipe['time_prep'], recipe['time_cook'], recipe['time_total'])
-
-
-# Remove rows with sweets and desserts
-s_flt = "almíbar|Batido|Brownie|Bizco|Cake|Caramel|Carbón|Chocolate|Coca|Dulce" + \
-            "|Flan|Gallet|Gofre|Helado|Magdalena|Mermelada|Natilla|Navidad|Nocilla" + \
-            "|Nugget|Palmer|Pan|Plumcake|Strudel|Sorbete|Tarta|Zumo"
-
-df = pd.read_csv( sFileIn + '.csv', sep=';', \
-                         encoding='windows-1252') #'windows-1252')
-
-
-# remove outliers
-df = df[df.i_time_prep  < df.i_time_prep.quantile(.9) ]
-df = df[df.i_time_cook  < df.i_time_cook.quantile(.9) ]
-df = df[df.i_time_total < df.i_time_total.quantile(.9) ]
-
-# Remove rows with zeros:
-df = df[df.i_time_prep  > 0 ]
-df = df[df.i_time_cook  > 0 ]
-df = df[df.i_time_total > 0 ]
-
-df_flt = df[df['Name'].str.contains(s_flt, case=False)==False]
-df_flt.to_csv(sFilePrefix + sFileIn + '_flt.csv', sep =';', encoding='windows-1252')
-
-df_flt_neg = df[df['Name'].str.contains(s_flt, case=False)==True]
-df_flt_neg.to_csv(sFilePrefix + sFileIn + '_flt_neg.csv', sep =';', encoding='windows-1252')
-
-
-#df.hist(column=['i_time_prep','i_time_cook','i_time_total'], bins=40) 
-df.hist(column=['i_time_prep','i_time_cook','i_time_total'], bins=range(0, 80, 5))
-
-df.hist(column=['ratingValue', 'ratingCount'], bins=40)
-"""
 
 # %% Write output files
 
