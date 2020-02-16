@@ -43,6 +43,8 @@ def get_recipe_dict(link):
     dict_recipe = dict()
 
     # TODO: Is it possible to simplify this? sth *args, **kwargs based with a list of methods?
+    # li_fields = ['title']
+    # dict_recipe = {field:getattr(scraper, field)() for field in li_fields}
     dict_recipe['title'] = scraper.title()
     dict_recipe['total_time'] = scraper.total_time()
     dict_recipe['prep_time'] = scraper.prep_time()
@@ -112,9 +114,8 @@ def write_recipe(recipe, output_base_dir):
         json.dump(recipe, outfile, indent=2, ensure_ascii=False)
 
 
-
 # give the url as a string, it can be url from any site listed below
-# scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
+scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
 
 # %% list of links to download
 
