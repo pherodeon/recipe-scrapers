@@ -9,7 +9,7 @@ import glob
 import json
 import pandas as pd
 import csv
-
+import traceback
 # %% Parameters
 
 # TODO: move to config file
@@ -38,10 +38,13 @@ if __name__ == '__main__':
                 print(s_file)
                 s_name = dict_recipe['title']
                 dict_results[s_name] = dict_recipe
-            except:
+            except Exception:
                 print(dict_recipe)
                 print(s_file)
                 print('title not found')
+                traceback.print_exc()
+                _str = traceback.format_exc()
+                print(_str)
 
     # %% Writes recipes summary csv file
     print('-'*60 + '\n' + 'Write summary file')
@@ -73,7 +76,7 @@ if __name__ == '__main__':
                     dict_results[recipe]['host'],
                     dict_results[recipe]['source']
                 ])
-            except:
+            except Exception:
                 print(dict_results[recipe])
                 print('There is a problem with some field')
             # output_file_writer.writerow([recipe['Name'], recipe['time_prep'], recipe['time_cook'], recipe['time_total']])
