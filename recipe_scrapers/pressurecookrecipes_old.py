@@ -1,29 +1,28 @@
-
 from ._abstract import AbstractScraper
 from ._utils import get_minutes, normalize_string, get_yields
 
-# TODO define a easy-recipe scraper class and inherit from it
+# TODO: define "wprm-recipe-container" scraper class and inherit from it
 
 
-class VelocidadCuchara(AbstractScraper):
+class PressureCookRecipes(AbstractScraper):
 
     @classmethod
     def host(self):
-        return 'velocidadcuchara.com'
+        return 'pressurecookrecipes.com'
 
     def title(self):
-        return self.soup.find('div',  attrs={'class': 'ERSName'}).get_text()
+        return self.soup.find('div', attrs={'class': 'ERSName'}).get_text()
 
     def total_time(self):
         return get_minutes(
-            self.soup.find('time', attrs={'itemprop':  'totalTime'}).get_text()
+            self.soup.find('time', attrs={'itemprop': 'totalTime'}).get_text()
         )
 
     def prep_time(self):
         return get_minutes(
-            self.soup.find('time', attrs={'itemprop':'prepTime'}).get_text()
+            self.soup.find('time', attrs={'itemprop': 'prepTime'}).get_text()
         )
-    
+
     def cook_time(self):
         return get_minutes(
             self.soup.find('time', attrs={'itemprop': 'cookTime'}).get_text()

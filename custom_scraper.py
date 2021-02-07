@@ -115,7 +115,7 @@ def write_recipe(recipe, output_base_dir):
 
 
 # give the url as a string, it can be url from any site listed below
-scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
+# scraper = scrape_me('http://allrecipes.com/Recipe/Apple-Cake-Iv/Detail.aspx')
 
 # %% list of links to download
 

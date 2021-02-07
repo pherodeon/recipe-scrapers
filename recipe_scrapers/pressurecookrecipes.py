@@ -16,31 +16,31 @@ class PressureCookRecipes(AbstractScraper):
     def total_time(self):
         return get_minutes(self.soup.findAll(
             'div',
-            {'class': 'wprm-recipe-time'})[-1].get_text()
+            {'class': 'wprm-recipe-total_time'})[0].get_text()
         )
 
     def prep_time(self):
         return get_minutes(self.soup.findAll(
             'div',
-            {'class': 'wprm-recipe-time'})[1].get_text()
-        )
+            {'class': 'wprm-recipe-prep_time'})[0].get_text()
+        ) # 'wprm-recipe-details wprm-recipe-details-minutes wprm-recipe-prep_time wprm-recipe-prep_time-minutes'
     
     def cook_time(self):
         return get_minutes(
             self.soup.findAll(
             'div',
-            {'class': 'wprm-recipe-time'})[2].get_text()
+            {'class': 'wprm-recipe-cook_time-minutes'})[0].get_text()
         )
 
     def yields(self):
         self.soup.findAll(
             'div',
-            {'class': 'wprm-recipe-time'})[0].get_text()
+            {'class': 'wprm-recipe-servings'})[0].get_text()
 
     def ingredients(self):
         ingredients = self.soup.findAll(
             'li',
-            {'class': 'wprm-recipe-ingredient'}
+            {'class': 'wprm-recipe-ingredients'}
         )
 
         return [

@@ -24,7 +24,7 @@ from .mybakingaddiction import MyBakingAddiction
 from .nihhealthyeating import NIHHealthyEating
 from .panelinha import Panelinha
 from .paninihappy import PaniniHappy
-from .pressurecookrecipes import PressureCookRecipes
+from .pressurecookrecipes_old import PressureCookRecipes
 from .realsimple import RealSimple
 from .seriouseats import SeriousEats
 from .simplyrecipes import SimplyRecipes
